@@ -11,15 +11,35 @@
 
 <div class="container">
     <h1>Manage Item Types</h1>
-
     <div class="table-buttons">
-        <a href="insert/item_types_insert.php" class="button">Insert</a>
-        <a href="update/item_types_update.php" class="button">Update</a>
-        <a href="delete/item_types_delete.php" class="button">Delete</a>
+        <a href="forms/item_types_insert.php" class="button">Insert</a>
+        <a href="forms/item_types_update.php" class="button">Update</a>
+        <a href="forms/item_types_delete.php" class="button">Delete</a>
     </div>
 
-    <!-- Optionally, you can display the item types in a table here -->
+    <table>
+        <tr>
+            <th>Type ID</th>
+            <th>Type</th>
+        </tr>
 
+        <?php
+        include 'scripts/config.php';
+
+        $sql = "SELECT type_id, type FROM item_types";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr><td>" . $row['type_id'] . "</td><td>" . $row['type'] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='2'>No data found</td></tr>";
+        }
+
+        $conn->close();
+        ?>
+    </table>
 </div>
 
 </body>

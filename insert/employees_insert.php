@@ -13,31 +13,38 @@
     <h1>Insert Employee</h1>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        include '../scripts/config.php';
+    include '../scripts/config.php';
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = $conn->real_escape_string($_POST['name']);
-        $position = $conn->real_escape_string($_POST['position']);
+        $position_id = $conn->real_escape_string($_POST['position_id']);
         $phone = $conn->real_escape_string($_POST['phone']);
 
-        $sql = "INSERT INTO employees (name, position, phone) VALUES ('$name', '$position', '$phone')";
+        $sql = "INSERT INTO employees (name, position_id, phone) VALUES ('$name', '$position_id', '$phone')";
 
-        if ($conn->query($sql) !== TRUE) {
+        if ($conn->query($sql) === TRUE) {
+            echo "<p>Employee inserted successfully.</p>";
+        } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
 
         $conn->close();
     }
+
+    include "../scripts/generate_options.php";
     ?>
 
     <form action="employees_insert.php" method="post">
         <div class="form-group">
-            <label for="name">Employee Name:</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="position">Position:</label>
-            <input type="text" id="position" name="position" required>
+            <label for="position_id">Position:</label>
+            <select id="position_id" name="position_id" required>
+                <option value="" disabled selected>Select a position</option>
+                <?php echo generateOptions("positions", "position_id", "position_name"); ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="phone">Phone:</label>

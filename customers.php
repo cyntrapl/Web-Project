@@ -11,15 +11,37 @@
 
 <div class="container">
     <h1>Manage Customers</h1>
-
     <div class="table-buttons">
-        <a href="insert/customers_insert.php" class="button">Insert</a>
-        <a href="update/customers_update.php" class="button">Update</a>
-        <a href="delete/customers_delete.php" class="button">Delete</a>
+        <a href="forms/customers_insert.php" class="button">Insert</a>
+        <a href="forms/customers_update.php" class="button">Update</a>
+        <a href="forms/customers_delete.php" class="button">Delete</a>
     </div>
 
-    <!-- Optionally, you can display the customers in a table here -->
+    <table>
+        <tr>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+        </tr>
 
+        <?php
+        include 'scripts/config.php';
+
+        $sql = "SELECT customer_id, name, address, phone FROM customers";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr><td>" . $row['customer_id'] . "</td><td>" . $row['name'] . "</td><td>" . $row['address'] . "</td><td>" . $row['phone'] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='4'>No data found</td></tr>";
+        }
+
+        $conn->close();
+        ?>
+    </table>
 </div>
 
 </body>

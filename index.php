@@ -7,6 +7,10 @@
 </head>
 <body>
 
+<?php
+include 'scripts/create.php';
+?>
+
 <div class="container">
     <h1>Music Store Management</h1>
     <div class="table-buttons">
@@ -16,6 +20,7 @@
         <a href="artists.php" class="button">Artists</a>
         <a href="music_companies.php" class="button"> Music Companies</a>
         <a href="customers.php" class="button">Customers</a>
+        <a href="positions.php" class="button">Positions</a>
         <a href="employees.php" class="button">Employees</a>
         <a href="sales.php" class="button">Sales</a>
         <a href="sale_items.php" class="button">Sale Items</a>

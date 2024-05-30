@@ -17,13 +17,13 @@
 
     if (isset($_GET['employee_id'])) {
         $employee_id = $conn->real_escape_string($_GET['employee_id']);
-        $sql = "SELECT name, position, phone FROM employees WHERE employee_id='$employee_id'";
+        $sql = "SELECT name, position_id, phone FROM employees WHERE employee_id='$employee_id'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $name = $row['name'];
-            $position = $row['position'];
+            $position_id = $row['position_id'];
             $phone = $row['phone'];
         } else {
             echo "Employee not found.";
@@ -34,10 +34,10 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $employee_id = $conn->real_escape_string($_POST['employee_id']);
         $name = $conn->real_escape_string($_POST['name']);
-        $position = $conn->real_escape_string($_POST['position']);
+        $position_id = $conn->real_escape_string($_POST['position_id']);
         $phone = $conn->real_escape_string($_POST['phone']);
 
-        $sql = "UPDATE employees SET name='$name', position='$position', phone='$phone' WHERE employee_id='$employee_id'";
+        $sql = "UPDATE employees SET name='$name', position_id='$position_id', phone='$phone' WHERE employee_id='$employee_id'";
 
         if ($conn->query($sql) === TRUE) {
             echo "Employee updated successfully.";
@@ -47,17 +47,21 @@
 
         $conn->close();
     }
+
+    include "../../scripts/generate_options_update.php";
     ?>
 
     <form action="employees_update_form.php" method="post">
         <input type="hidden" name="employee_id" value="<?php echo $employee_id; ?>">
         <div class="form-group">
-            <label for="name">Employee Name:</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" value="<?php echo $name; ?>" required>
         </div>
         <div class="form-group">
-            <label for="position">Position:</label>
-            <input type="text" id="position" name="position" value="<?php echo $position; ?>" required>
+            <label for="position_id">Position:</label>
+            <select id="position_id" name="position_id" required>
+                <?php echo generateOptions("positions", "position_id", "position_name", $position_id); ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="phone">Phone:</label>

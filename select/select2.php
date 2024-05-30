@@ -39,7 +39,7 @@
         $category = $conn->real_escape_string($_POST['category']);
 
         if ($category == 'genre') {
-            $sql = "SELECT genres.name, SUM(items.unit_price * sale_items.quantity) AS turnover
+            $sql = "SELECT genres.name AS category_name, SUM(items.unit_price * sale_items.quantity) AS turnover
                     FROM sales
                     JOIN sale_items ON sales.sale_id = sale_items.sale_id
                     JOIN items ON sale_items.item_id = items.item_id
@@ -48,7 +48,7 @@
                     GROUP BY genres.name
                     ORDER BY turnover ASC";
         } else {
-            $sql = "SELECT music_companies.name, SUM(items.unit_price * sale_items.quantity) AS turnover
+            $sql = "SELECT music_companies.name AS category_name, SUM(items.unit_price * sale_items.quantity) AS turnover
                     FROM sales
                     JOIN sale_items ON sales.sale_id = sale_items.sale_id
                     JOIN items ON sale_items.item_id = items.item_id
@@ -64,7 +64,7 @@
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                echo "<tr><td>" . $row['name'] . "</td><td>" . $row['turnover'] . "</td></tr>";
+                echo "<tr><td>" . $row['category_name'] . "</td><td>" . $row['turnover'] . "</td></tr>";
             }
         } else {
             echo "<tr><td colspan='2'>No data found</td></tr>";
