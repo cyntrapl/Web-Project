@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "music_store";
+$host = "irkm0xtlo2pcmvvz.chr7pe7iynqr.eu-west-1.rds.amazonaws.com";
+$user = "lpuez6adwms7b0c7";
+$password = "yhc7kbo90uou96qf";
+$database = "dclop4vu9rnez9o6";
 
 //Fm34TFQ2*
 
