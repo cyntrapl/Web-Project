@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<?php include "scripts/create.php";?>
+
 <div class="container">
     <h1>Music Store Management</h1>
     <div class="table-buttons">
